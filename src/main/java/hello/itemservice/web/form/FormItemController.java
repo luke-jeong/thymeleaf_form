@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/form/items")
@@ -18,6 +20,18 @@ import java.util.List;
 public class FormItemController {
 
     private final ItemRepository itemRepository;
+
+    @ModelAttribute("regions")
+    //ModelAttribute를 만들어두면 어떤 폼에서든 regions 의 값이 들어가게된다.
+    public Map<String, String> regions(){
+        Map<String, String> regions = new LinkedHashMap<>();
+        //그냥 hashmap을 쓰면 순서 보장이 안되기 때문에 linked씀
+        regions.put("SEOUL", "서울");
+        regions.put("BUSAN", "부산");
+        regions.put("JEJU", "제주");
+        return regions;
+    }
+
 
     @GetMapping
     public String items(Model model) {
