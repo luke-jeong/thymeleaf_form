@@ -47,8 +47,23 @@
             <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
             <!-- 체크박스 해제 시 값을 인식하기 위한 히든 필드 추가해줘야 하지만, th:field는 히든필드 생성까지도 도와주기 때문에
             코드를 추가할 필요 없다.-->
+
             <!--<input type="hidden" name="_open" value="on"/>-->
             <label for="open" class="form-check-label">판매 오픈</label>
+        </div>
+    </div>
+
+    <!-- multi checkbox -->
+    <div>
+        <div>등록 지역</div>
+        <div th:each="region : ${regions}" class="form-check form-check-inline">
+            <!--th:each 사용 시 반복되는 루프 안의 id는 임의로 숫자를 붙여준다.-->
+            <input type="checkbox" th:field="${item.regions}" th:value="${region.key}"
+                   class="form-check-input" disabled>
+            <!--addForm 페이지와 달리 th에서 item을 끌어와 쓰고있지 않기때문에 th:field값에 *{regions}가 아닌 ${item.regions}를 입력해야한다.-->
+            <label th:for="${#ids.prev('regions')}"
+                   th:text="${region.value}" class="form-check-label">서울</label>
+            <!--th:for는 알아서 해당 id를 찾아 동적으로 생성되는 id 값을 연결시켜준다-->
         </div>
     </div>
 
